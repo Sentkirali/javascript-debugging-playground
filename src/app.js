@@ -1,5 +1,6 @@
 import { addNumbers } from "./calculator.js";
 import { validateSignupForm } from "./validation.js";
+import { fetchFakeUserData } from "./api.js";
 
 const numberAInput = document.querySelector("#number-a");
 const numberBInput = document.querySelector("#number-b");
@@ -9,6 +10,8 @@ const signupForm = document.querySelector("#signup-form");
 const nameInput = document.querySelector("#name");
 const emailInput = document.querySelector("#email");
 const formMessage = document.querySelector("#form-message");
+const loadDataButton = document.querySelector("#load-data-btn");
+const apiResult = document.querySelector("#api-result");
 
 const debugLog = document.querySelector("#debug-log");
 const clearLogButton = document.querySelector("#clear-log-btn");
@@ -84,4 +87,29 @@ signupForm.addEventListener("submit", (event) => {
   );
 
   signupForm.reset();
+});
+loadDataButton.addEventListener("click", async () => {
+  apiResult.textContent = "Loading data...";
+  loadDataButton.disabled = true;
+
+  addLog("API request started.", "warning");
+
+  try {
+    const data = await fetchFakeUserData();
+
+    apiResult.innerHTML = `
+      <strong>User loaded:</strong><br />
+      ID: ${data.id}<br />
+      Name: ${data.name}<br />
+      Role: ${data.role}<br />
+      Status: ${data.status}
+    `;
+
+    addLog(`API request successful: loaded user ${data.name}`, "success");
+  } catch (error) {
+    apiResult.textContent = error.message;
+    addLog(`API request failed: ${error.message}`, "error");
+  } finally {
+    loadDataButton.disabled = false;
+  }
 });
