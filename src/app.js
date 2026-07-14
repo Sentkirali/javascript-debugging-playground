@@ -2,6 +2,7 @@ import { addNumbers } from "./calculator.js";
 import { validateSignupForm } from "./validation.js";
 import { fetchFakeUserData } from "./api.js";
 import { validateEventPayload } from "./eventValidator.js";
+import { pushToDataLayer, getDataLayer, clearDataLayer } from "./dataLayer.js";
 
 const numberAInput = document.querySelector("#number-a");
 const numberBInput = document.querySelector("#number-b");
@@ -15,6 +16,7 @@ const loadDataButton = document.querySelector("#load-data-btn");
 const apiResult = document.querySelector("#api-result");
 const validateEventButton = document.querySelector("#validate-event-btn");
 const payloadResult = document.querySelector("#payload-result");
+const clearDataLayerButton = document.querySelector("#clear-datalayer-btn");
 
 const debugLog = document.querySelector("#debug-log");
 const clearLogButton = document.querySelector("#clear-log-btn");
@@ -132,14 +134,15 @@ validateEventButton.addEventListener("click", () => {
 
   const validationResult = validateEventPayload(samplePayload);
 
-  const output = {
-    payload: samplePayload,
-    validation: validationResult
-  };
-
-  payloadResult.textContent = JSON.stringify(output, null, 2);
-
   if (!validationResult.isValid) {
+    const output = {
+      payload: samplePayload,
+      validation: validationResult,
+      dataLayer: getDataLayer()
+    };
+
+    payloadResult.textContent = JSON.stringify(output, null, 2);
+
     addLog(
       `Payload validation failed: ${validationResult.errors.join(" ")}`,
       "error"
@@ -148,5 +151,28 @@ validateEventButton.addEventListener("click", () => {
     return;
   }
 
-  addLog("Payload validation successful.", "success");
+  pushToDataLayer(samplePayload);
+
+  const output = {
+    payload: samplePayload,
+    validation: validationResult,
+    dataLayer: getDataLayer()
+  };
+
+  payloadResult.textContent = JSON.stringify(output, null, 2);
+
+  addLog("Payload validation successful and pushed to dataLayer.", "success");
+});
+
+clearDataLayerButton.addEventListener("click", () => {
+  clearDataLayer();
+
+  const output = {
+    message: "Data layer cleared.",
+    dataLayer: getDataLayer()
+  };
+
+  payloadResult.textContent = JSON.stringify(output, null, 2);
+
+  addLog("Data layer cleared.", "warning");
 });
