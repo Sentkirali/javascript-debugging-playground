@@ -71,10 +71,22 @@
         <h2>Payload Validation Challenge</h2>
         <p>Validate an analytics-style event payload before sending it.</p>
 
-        <button id="validate-event-btn" class="btn">Validate Event Payload</button>
-<button id="clear-datalayer-btn" class="btn secondary">Clear Data Layer</button>
+        <label class="checkbox-row">
+          <input id="consent-checkbox" type="checkbox" checked />
+          Analytics consent granted
+        </label>
 
-<pre id="payload-result" class="code-box">Waiting for validation...</pre>
+        <button id="validate-event-btn" class="btn">
+          Validate Event Payload
+        </button>
+        <button id="clear-datalayer-btn" class="btn secondary">
+          Clear Data Layer
+        </button>
+
+        <pre id="payload-result" class="code-box">
+Waiting for validation...</pre
+        >
+      </section>
 
       <section class="card full-width">
         <h2>Debug Log</h2>

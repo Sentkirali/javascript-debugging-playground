@@ -17,6 +17,7 @@ const apiResult = document.querySelector("#api-result");
 const validateEventButton = document.querySelector("#validate-event-btn");
 const payloadResult = document.querySelector("#payload-result");
 const clearDataLayerButton = document.querySelector("#clear-datalayer-btn");
+const consentCheckbox = document.querySelector("#consent-checkbox");
 
 const debugLog = document.querySelector("#debug-log");
 const clearLogButton = document.querySelector("#clear-log-btn");
@@ -122,15 +123,15 @@ loadDataButton.addEventListener("click", async () => {
 
 validateEventButton.addEventListener("click", () => {
   const samplePayload = {
-    eventName: "button_click",
-    timestamp: new Date().toISOString(),
-    page: "home",
-    consentGiven: true,
-    properties: {
-      buttonId: "hero-cta",
-      buttonText: "Get Started"
-    }
-  };
+  eventName: "button_click",
+  timestamp: new Date().toISOString(),
+  page: "home",
+  consentGiven: consentCheckbox.checked,
+  properties: {
+    buttonId: "hero-cta",
+    buttonText: "Get Started"
+  }
+};
 
   const validationResult = validateEventPayload(samplePayload);
 
@@ -150,6 +151,21 @@ validateEventButton.addEventListener("click", () => {
 
     return;
   }
+
+if (!samplePayload.consentGiven) {
+  const output = {
+    payload: samplePayload,
+    validation: validationResult,
+    message: "Consent not granted. Event was not pushed to dataLayer.",
+    dataLayer: getDataLayer()
+  };
+
+  payloadResult.textContent = JSON.stringify(output, null, 2);
+
+  addLog("Consent not granted. Event blocked.", "warning");
+
+  return;
+}
 
   pushToDataLayer(samplePayload);
 
