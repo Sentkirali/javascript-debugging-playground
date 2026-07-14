@@ -48,10 +48,10 @@ javascript-debugging-playground/
 ├── index.html
 ├── README.md
 ├── src/
-│   ├── style.css
-│   ├── app.js
-│   ├── calculator.js
-│   ├── validation.js
-│   ├── api.js
-│   ├── eventValidator.js
-│   └── dataLayer.js
+    ├── style.css
+    ├── app.js
+    ├── calculator.js
+    ├── validation.js
+    ├── api.js
+    ├── eventValidator.js
+    └── dataLayer.js
