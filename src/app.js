@@ -1,6 +1,7 @@
 import { addNumbers } from "./calculator.js";
 import { validateSignupForm } from "./validation.js";
 import { fetchFakeUserData } from "./api.js";
+import { validateEventPayload } from "./eventValidator.js";
 
 const numberAInput = document.querySelector("#number-a");
 const numberBInput = document.querySelector("#number-b");
@@ -12,6 +13,8 @@ const emailInput = document.querySelector("#email");
 const formMessage = document.querySelector("#form-message");
 const loadDataButton = document.querySelector("#load-data-btn");
 const apiResult = document.querySelector("#api-result");
+const validateEventButton = document.querySelector("#validate-event-btn");
+const payloadResult = document.querySelector("#payload-result");
 
 const debugLog = document.querySelector("#debug-log");
 const clearLogButton = document.querySelector("#clear-log-btn");
@@ -88,6 +91,7 @@ signupForm.addEventListener("submit", (event) => {
 
   signupForm.reset();
 });
+
 loadDataButton.addEventListener("click", async () => {
   apiResult.textContent = "Loading data...";
   loadDataButton.disabled = true;
@@ -112,4 +116,37 @@ loadDataButton.addEventListener("click", async () => {
   } finally {
     loadDataButton.disabled = false;
   }
+});
+
+validateEventButton.addEventListener("click", () => {
+  const samplePayload = {
+    eventName: "button_click",
+    timestamp: new Date().toISOString(),
+    page: "home",
+    consentGiven: true,
+    properties: {
+      buttonId: "hero-cta",
+      buttonText: "Get Started"
+    }
+  };
+
+  const validationResult = validateEventPayload(samplePayload);
+
+  const output = {
+    payload: samplePayload,
+    validation: validationResult
+  };
+
+  payloadResult.textContent = JSON.stringify(output, null, 2);
+
+  if (!validationResult.isValid) {
+    addLog(
+      `Payload validation failed: ${validationResult.errors.join(" ")}`,
+      "error"
+    );
+
+    return;
+  }
+
+  addLog("Payload validation successful.", "success");
 });
