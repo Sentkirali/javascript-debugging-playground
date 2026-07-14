@@ -25,3 +25,7 @@ A small frontend project focused on JavaScript debugging, DOM events, form valid
 - Console debugging
 - Network tab inspection
 - Payload validation
+
+## Live Demo
+
+https://sentkirali.github.io/javascript-debugging-playground/
