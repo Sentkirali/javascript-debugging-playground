@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>JavaScript Debugging Playground</title>
+
+    <link rel="stylesheet" href="./src/style.css" />
+    <script type="module" src="./src/app.js" defer></script>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">Frontend Practice Project</p>
+        <h1>JavaScript Debugging Playground</h1>
+        <p class="hero-text">
+          Practice JavaScript debugging, DOM events, form validation, async
+          error handling, and payload validation in one small frontend project.
+        </p>
+      </div>
+    </header>
+
+    <main class="container layout">
+      <section class="card">
+        <h2>Calculator Debug Challenge</h2>
+        <p>
+          Enter two numbers and calculate the result. The goal is to handle
+          string inputs, invalid values, and clean output.
+        </p>
+
+        <div class="form-row">
+          <input id="number-a" type="number" placeholder="First number" />
+          <input id="number-b" type="number" placeholder="Second number" />
+        </div>
+
+        <button id="calculate-btn" class="btn">Calculate</button>
+
+        <p class="result">Result: <span id="calculator-result">-</span></p>
+      </section>
+
+      <section class="card">
+        <h2>Form Validation Challenge</h2>
+        <p>Validate name and email fields before submitting the form.</p>
+
+        <form id="signup-form">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" />
+
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" />
+
+          <button class="btn" type="submit">Submit Form</button>
+        </form>
+
+        <p id="form-message" class="message"></p>
+      </section>
+
+      <section class="card">
+        <h2>Async API Challenge</h2>
+        <p>
+          Simulate an API request and handle loading, success, and error states.
+        </p>
+
+        <button id="load-data-btn" class="btn">Load Fake Data</button>
+
+        <div id="api-result" class="api-result">No data loaded yet.</div>
+      </section>
+
+      <section class="card">
+        <h2>Payload Validation Challenge</h2>
+        <p>Validate an analytics-style event payload before sending it.</p>
+
+        <button id="validate-event-btn" class="btn">
+          Validate Event Payload
+        </button>
+
+        <pre id="payload-result" class="code-box">
+Waiting for validation...</pre
+        >
+      </section>
+
+      <section class="card full-width">
+        <h2>Debug Log</h2>
+        <p>This panel shows events, errors, and validation results.</p>
+
+        <button id="clear-log-btn" class="btn secondary">Clear Log</button>
+
+        <ul id="debug-log" class="debug-log"></ul>
+      </section>
+    </main>
+  </body>
+</html>
