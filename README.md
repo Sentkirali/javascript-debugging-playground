@@ -55,4 +55,3 @@ javascript-debugging-playground/
 │   ├── api.js
 │   ├── eventValidator.js
 │   └── dataLayer.js
-└── screenshots/
